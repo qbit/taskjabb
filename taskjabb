@@ -1,0 +1,54 @@
+#!/usr/bin/env node
+
+var xmpp = require( 'simple-xmpp' ),
+  spawn = require( 'child_process' ).spawn,
+  args = require( 'optimist' )
+    .usage( '$0 -j <jid> -p <password> [ -s <server> -P <port> ]\n' )
+    .demand( ['j','p'] )
+    .argv,
+  cmd = "task";
+
+function say( to, args ) {
+  var t = spawn( cmd, args );
+
+  t.stdout.on( 'data', function( data ) {
+    xmpp.send( to, data.toString() );
+  });
+
+  t.on( 'error', function( error ) {
+    throw error;
+  });
+
+  t.on( 'exit', function( stat ) {
+    console.log( args, stat );
+  });
+}
+
+xmpp.on( 'chat', function( from, message ) {
+  var a = message.split( ' ' );
+  say( from, a );
+});
+
+xmpp.on( 'online', function() {
+  console.log( 'connected' );
+  xmpp.send( 'qbit@qbit.io', 'hi!' );
+});
+
+xmpp.on( 'buddy', function( jid, state ) {
+});
+
+xmpp.on( 'stanza', function( stanza ) {
+});
+
+xmpp.on( 'error', function( error ) {
+  throw error;
+});
+
+xmpp.connect( {
+  jid: args.j,
+  password: args.p,
+  host: args.s,
+  port: args.P || 5222
+});
+
+// vim:ft=javascript et :

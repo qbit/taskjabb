@@ -1,0 +1,21 @@
+{
+  "name": "taskjabb",
+  "version": "0.0.0",
+  "description": "TaskWarrior to XMPP bridge.",
+  "main": "index.js",
+  "dependencies": {
+    "simple-xmpp": "~0.1.6",
+    "optimist": "~0.3.5"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": "",
+  "keywords": [
+    "taskwarrior",
+    "xmpp"
+  ],
+  "author": "Aaron Bieber",
+  "license": "BSD"
+}
