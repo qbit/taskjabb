@@ -20,7 +20,6 @@ function say( to, args ) {
   });
 
   t.on( 'exit', function( stat ) {
-    console.log( args, stat );
   });
 }
 
@@ -31,7 +30,6 @@ xmpp.on( 'chat', function( from, message ) {
 
 xmpp.on( 'online', function() {
   console.log( 'connected' );
-  xmpp.send( 'qbit@qbit.io', 'hi!' );
 });
 
 xmpp.on( 'buddy', function( jid, state ) {
