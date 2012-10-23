@@ -3,7 +3,7 @@
 var xmpp = require( 'simple-xmpp' ),
   spawn = require( 'child_process' ).spawn,
   args = require( 'optimist' )
-    .usage( '$0 -j <jid> -p <password> [ -s <server> -P <port> ]\n' )
+    .usage( '$0 -j <jid> -p <password> [ -s <server>, -P <port>, -o <only allow from jid>]\n' )
     .demand( ['j','p'] )
     .argv,
   cmd = "task";
@@ -30,7 +30,15 @@ function say( to, args ) {
 
 xmpp.on( 'chat', function( from, message ) {
   var a = message.split( ' ' );
-  say( from, a );
+  if ( args.o ) {
+   if (  args.o === from ) {
+      say( from, a );
+    } else {
+      console.log( 'unknown command from %s', from );
+    }
+  } else {
+    say( from, a );
+  }
 });
 
 xmpp.on( 'online', function() {
