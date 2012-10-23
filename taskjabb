@@ -9,7 +9,7 @@ var xmpp = require( 'simple-xmpp' ),
   cmd = "task";
 
 function say( to, args ) {
-  var t = spawn( cmd, args );
+  var t = spawn( cmd, args ), proc;
 
   t.stdout.on( 'data', function( data ) {
     xmpp.send( to, data.toString() );
@@ -20,7 +20,12 @@ function say( to, args ) {
   });
 
   t.on( 'exit', function( stat ) {
+    clearTimeout( proc );
   });
+
+  proc  = setTimeout( function() {
+    t.kill( 'SIGHUP' );
+  }, 3000 );
 }
 
 xmpp.on( 'chat', function( from, message ) {
