@@ -18,3 +18,8 @@ installing
 4. node taskjabb -h
 
 I recommend using a non-public jabber server, as it would be a bummer to expose your task lists to the world!
+
+using
+=====
+
+All task commands are supported as this is just a "bridge" between you and the task command.
