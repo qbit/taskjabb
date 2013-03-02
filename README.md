@@ -16,3 +16,5 @@ installing
 2. cd jaskjabb
 3. npm install
 4. node taskjabb -h
+
+I recommend using a non-public jabber server, as it would be a bummer to expose your task lists to the world!
